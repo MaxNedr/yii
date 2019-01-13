@@ -1,27 +1,25 @@
 <?php
-
 namespace app\controllers;
 
-use Yii;
-use yii\filters\AccessControl;
+
+
+use app\models\Product;
 use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
+
 
 class TestController extends Controller
 {
 
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
-         // return $this->renderContent('test');
-         return $this->render('index');
+        $model = new Product();
+        $model->price = 100;
+        $model->name = 'Name';
+        $model->id = 2;
+        $model->category = 'main';
+
+
+        // return $this->renderContent('test');
+        return $this->render('index',['model'=> $model]);
     }
 }

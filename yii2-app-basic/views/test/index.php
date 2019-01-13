@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $model app\models\Product*/
 
 $this->title = 'My Yii Application';
 ?>
@@ -16,6 +17,11 @@ $this->title = 'My Yii Application';
 
     <div class="body-content">
 
+        <p><?= $model->price ?></p>
+        <p><?= $model->id ?></p>
+        <p><?= $model->name ?></p>
+        <p><?= $model->category ?></p>
+        <p><?= yii\widgets\DetailView::widget(['model'=>$model]) ?></p>
         <p>Test</p>
 
     </div>
