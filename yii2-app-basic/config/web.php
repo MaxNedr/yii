@@ -43,6 +43,10 @@ $config = [
             ],
         ],
         'db' => $db,
+        'test'=>[
+            'class'=>\app\components\TestService::class,
+            'property'=>'test property'
+        ],
 
         'urlManager' => [
             'enablePrettyUrl' => true,
