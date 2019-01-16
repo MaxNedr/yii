@@ -16,12 +16,12 @@ class TestController extends Controller
 //        $test = new TestService();
 //        return $test->start();
 
-        return \Yii::$app->test->start();
+//        return \Yii::$app->test->start();
 
 
         $model = new Product();
         $model->price = 100;
-        $model->name = 'Name';
+        $model->name = \Yii::$app->test->start();;
         $model->id = 2;
         $model->category = 'main';
 

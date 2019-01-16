@@ -45,7 +45,7 @@ $config = [
         'db' => $db,
         'test'=>[
             'class'=>\app\components\TestService::class,
-            'property'=>'test property'
+            'property'=>'test еуые property'
         ],
 
         'urlManager' => [
