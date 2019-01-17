@@ -19,7 +19,6 @@ $this->title = 'My Yii Application';
         <p><?= $model->price ?></p>
         <p><?= $model->id ?></p>
         <p><?= $model->name ?></p>
-        <p><?= $model->category ?></p>
         <p><?= yii\widgets\DetailView::widget(['model'=>$model]) ?></p>
         <p>Test</p>
 
