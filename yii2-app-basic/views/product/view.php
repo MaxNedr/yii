@@ -36,7 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'html'
             ],
             'price',
-            'created_at:datetime:Время создания',
+            [
+                    'attribute'=>'created_at',
+                'contentOptions'=>['class'=>'small '],
+                'format'=>'datetime'
+            ],
         ],
     ]) ?>
 
