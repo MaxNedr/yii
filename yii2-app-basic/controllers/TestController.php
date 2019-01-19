@@ -23,6 +23,7 @@ class TestController extends Controller
         $model->price = 100;
         $model->name = \Yii::$app->test->start();;
         $model->id = 2;
+        $model->created_at = 221245337;
 
 
         // return $this->renderContent('test');

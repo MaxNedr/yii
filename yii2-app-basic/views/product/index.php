@@ -37,8 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'created_at',
                 'format' => 'datetime',
                 'value' => function ($model) {
-
-                    return strtolower($model->created_at);
+                    return $model->created_at;
                 }],
             'created_at:datetime:Дата создания',
 
