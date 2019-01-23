@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -25,21 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            [
-                'attribute' => 'name',
-                'format' => 'html',
-                'value' => function ($model) {
-                    return Html::a($model->name, ['view?id=' . $model->id]);
-                }
-            ],
-            'name:text:Имя',
-            'price:text:Цена',
-            ['attribute' => 'created_at',
-                'format' => 'datetime',
-                'value' => function ($model) {
-                    return $model->created_at;
-                }],
-            'created_at:datetime:Дата создания',
+            'name',
+            'price',
+            'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

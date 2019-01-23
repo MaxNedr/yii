@@ -3,24 +3,23 @@
 use yii\db\Migration;
 
 /**
- * Class m190123_131644_user
+ * Class m190123_160313_task
  */
-class m190123_131644_user extends Migration
+class m190123_160313_task extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('user', [
-            'id' => $this->primaryKey(),
-            'username'=>$this->string()->notNull(),
-            'password_hash'=>$this->string()->notNull(),
-            'auth_key'=>$this->string()->notNull(),
+        $this->createTable('task', [
+            'id'=>$this->primaryKey(),
+            'title'=>$this->string()->notNull(),
+            'description'=>$this->text()->notNull(),
             'creator_id'=>$this->integer()->notNull(),
             'updater_id'=>$this->integer(),
             'created_at'=>$this->integer()->notNull(),
-            'updated_at'=>$this->integer()
+            'updated_at'=>$this->integer(),
         ]);
     }
 
@@ -29,9 +28,8 @@ class m190123_131644_user extends Migration
      */
     public function safeDown()
     {
-//        echo "m190123_131644_user cannot be reverted.\n";
-        $this->dropTable('user');
-
+       // echo "m190123_160313_task cannot be reverted.\n";
+        $this->dropTable('task');
         return true;
     }
 
@@ -44,7 +42,7 @@ class m190123_131644_user extends Migration
 
     public function down()
     {
-        echo "m190123_131644_user cannot be reverted.\n";
+        echo "m190123_160313_task cannot be reverted.\n";
 
         return false;
     }

@@ -22,5 +22,8 @@ $this->title = 'My Yii Application';
         <p><?= yii\widgets\DetailView::widget(['model'=>$model]) ?></p>
         <p>Test</p>
 
+        <a href="/test/insert" class="btn btn-danger"> добавить записи</a>
+        <a href="/test/select" class="btn btn-danger"> Select</a>
+
     </div>
 </div>
