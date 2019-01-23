@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Product*/
+/* @var $model app\models\Product */
 
 $this->title = 'My Yii Application';
 ?>
@@ -15,12 +15,10 @@ $this->title = 'My Yii Application';
     </div>
 
     <div class="body-content">
-        <p><?= yii\widgets\DetailView::widget(['model'=>$model]) ?></p>
 
+       <p>Добавление в БД прошло успешно</p>
 
-
-        <a href="/test/insert" class="btn btn-danger"> добавить записи</a>
-        <a href="/test/select" class="btn btn-danger"> Select</a>
+        <a href="/test" class="btn btn-default">назад</a>
 
     </div>
 </div>

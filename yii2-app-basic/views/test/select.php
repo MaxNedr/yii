@@ -16,12 +16,15 @@ $this->title = 'My Yii Application';
 
     <div class="body-content">
 
-       <!-- <p><?/*= yii\widgets\DetailView::widget(['model' => $model]) */?></p>-->
+        <!-- <p><? /*= yii\widgets\DetailView::widget(['model' => $model]) */ ?></p>-->
+        <p>Четвертое задание, вариант "а":</p>
         <p><?php \yii\helpers\VarDumper::dump($model) ?></p>
+        <p>Четвертое задание, вариант "б":</p>
         <p><?php \yii\helpers\VarDumper::dump($model_1) ?></p>
+        <p>Четвертое задание, вариант "в":</p>
         <p><?php \yii\helpers\VarDumper::dump($model_2) ?></p>
-
-        <p>Test</p>
+        <p>Дополнительное задание:</p>
+        <p><?php \yii\helpers\VarDumper::dump($model_3) ?></p>
 
 
     </div>
