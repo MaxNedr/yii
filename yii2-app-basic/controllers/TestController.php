@@ -24,7 +24,7 @@ class TestController extends Controller
         $model->name = \Yii::$app->test->start();;
         $model->id = 2;
         $model->created_at = 221245337;
-
+        _log($model);
 
         // return $this->renderContent('test');
         return $this->render('index',['model'=> $model]);
