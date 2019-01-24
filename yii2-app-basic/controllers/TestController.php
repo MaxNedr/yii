@@ -80,9 +80,12 @@ class TestController extends Controller
     {
         $query = new Query();
         $newModel = $query->from('user')->where(['id' => 1])->one();
-        $newModel_2 = $query->from('user')->where('id' > 1)->orderBy('username')->all();
-        $newModel_3 = $query->from('user')->count();
-        $newModel_4 = $query->select(['task.id', 'title', 'description', 'task.creator_id', 'user.id','username' ])->from('task')->innerJoin('user', 'task.creator_id'=='user.id')->all();
+        $query_2 = new Query();
+        $newModel_2 = $query_2->from('user')->where('id > 1')->orderBy('username')->all();
+        $query_3 = new Query();
+        $newModel_3 = $query_3->from('user')->count();
+        $query_4 = new Query();
+        $newModel_4 = $query_4->select(['task.id', 'title', 'description', 'task.creator_id', 'user.id','username' ])->from('task')->innerJoin('user', 'task.creator_id = user.id')->all();
 
         return $this->render('select', [
             'model' => $newModel,
