@@ -20,15 +20,15 @@ class TestController extends Controller
 
 //        return \Yii::$app->test->start();
 
-        $model = new Product();
+        /*$model = new Product();
         $model->price = 100;
         $model->name = \Yii::$app->test->start();;
         $model->id = 2;
         $model->created_at = 221245337;
-        _log($model);
+        _log($model);*/
 
         // return $this->renderContent('test');
-        return $this->render('index', ['model' => $model]);
+        return $this->render('index', ['model' => []]);
     }
 
 
