@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Task;
+use app\models\TaskUser;
 use Yii;
 use app\models\User;
 use yii\data\ActiveDataProvider;
@@ -32,7 +33,7 @@ class UserController extends Controller
 
     public function actionTest()
     {
-       /* $newRecord = new User();
+        $newRecord = new User();
         $newRecord->setAttributes([
             'username' => 'new user name',
             'password_hash' => 'hash_pass',
@@ -43,6 +44,7 @@ class UserController extends Controller
 
         ]);
         $newRecord->save();
+        _log($newRecord);
 
         $sameUser = User::findOne(1);
         $newTask = new Task();
@@ -50,6 +52,7 @@ class UserController extends Controller
         $newTask->description = 'new Desc';
         $newTask->created_at = time();
         $newTask->link('creator', $sameUser);
+        _log($newTask);
 
         $sameUser2 = User::findOne(2);
         $newTask2 = new Task();
@@ -57,6 +60,7 @@ class UserController extends Controller
         $newTask2->description = 'new Desc2';
         $newTask2->created_at = time();
         $newTask2->link('creator', $sameUser2);
+        _log($newTask2);
 
         $sameUser3 = User::findOne(3);
         $newTask3 = new Task();
@@ -64,20 +68,27 @@ class UserController extends Controller
         $newTask3->description = 'new Desc3';
         $newTask3->created_at = time();
         $newTask3->link('creator', $sameUser3);
+        _log($newTask3 );
 
-        _end([$newTask,$newTask2,$newTask3] );*/
 
 
-        //return $this->redirect('/user');
 
 
         $model = User::find()->with(User::RELATION_CREATED_TASKS)->all();
         _log($model);
 
-        $model = User::find()->joinWith(User::RELATION_CREATED_TASKS)->all();
-        _log($model);
+        $model1 = User::find()->joinWith(User::RELATION_CREATED_TASKS)->all();
+        _log($model1);
 
-        return $this->render('test', ['model' => $model]);
+
+        $sameUser4 = User::findOne(1);
+        $tasks = Task::findAll([9, 10, 11]);
+        foreach ($tasks as $task) {
+            $sameUser4->link(User::RELATION_ACCESSED_TASKS, $task);
+        }
+
+
+        return $this->render('test', ['model' => []]);
     }
 
     /**
