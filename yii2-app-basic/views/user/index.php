@@ -18,22 +18,25 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'username',
             'password_hash',
             'auth_key',
             'creator_id',
             //'updater_id',
-            //'created_at',
+            'created_at:datetime',
             //'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
+    <p>
+        <?= Html::a('Create automatic User', ['test'], ['class' => 'btn btn-success']) ?>
+    </p>
 </div>
