@@ -37,10 +37,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             ['class' => TimestampBehavior::class],
-            /*['class' => BlameableBehavior::class,
+            ['class' => BlameableBehavior::class,
                 'createdByAttribute' => 'creator_id',
-                'updatedByAttributes' => 'updater_id'
-            ],*/
+                'updatedByAttribute' => 'updater_id'
+            ],
 
         ];
     }
