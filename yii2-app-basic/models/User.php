@@ -36,8 +36,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            ['class' => TimestampBehavior::class],
-            ['class' => BlameableBehavior::class,
+            ['class' => TimestampBehavior::className()],
+            ['class' => BlameableBehavior::className(),
                 'createdByAttribute' => 'creator_id',
                 'updatedByAttribute' => 'updater_id'
             ],

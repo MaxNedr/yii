@@ -28,9 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'password_hash',
             'auth_key',
             'creator_id',
-            //'updater_id',
+            'updater_id',
             'created_at:datetime',
-            //'updated_at',
+            'updated_at:datetime',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
