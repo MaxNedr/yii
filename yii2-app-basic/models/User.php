@@ -54,7 +54,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         if ($this->isNewRecord) {
             $this->auth_key = \Yii::$app->security->generateRandomString();
         }
-        if ($this->password) {
+        if (isset($this->password)) {
             $this->password_hash = \Yii::$app->getSecurity()->generatePasswordHash($this->password);
         }
 
@@ -161,6 +161,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'id' => 'ID',
             'username' => 'Username',
             'password_hash' => 'Password Hash',
+            'password' => 'Password',
             'auth_key' => 'Auth Key',
             'creator_id' => 'Creator ID',
             'updater_id' => 'Updater ID',
