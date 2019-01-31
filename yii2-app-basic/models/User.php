@@ -30,8 +30,23 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     const RELATION_UPDATED_TASKS = 'updatedTasks';
     const RELATION_TASK_USERS = 'taskUsers';
     const RELATION_ACCESSED_TASKS = 'accessedTasks';
+    const SCENARIO_CREATE = 'create';
+    const SCENARIO_UPDATE = 'update';
 
     public $password;
+
+    /**
+     * Сценарии
+     * @return array
+     */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[static::SCENARIO_CREATE] = ['username', 'password'];
+        $scenarios[static::SCENARIO_UPDATE] = ['username'];
+        return $scenarios;
+    }
+
 
     public function behaviors()
     {
@@ -140,13 +155,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return 'user';
     }
 
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['username'], 'required'],
+            [['username'], 'required', 'on' => 'update'],
+            [['username', 'password'], 'required', 'on' => 'create'],
             [['creator_id', 'updater_id', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password', 'auth_key'], 'string', 'max' => 255],
         ];
