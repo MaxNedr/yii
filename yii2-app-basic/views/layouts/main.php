@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use app\widgets\Alert;
@@ -35,11 +36,39 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'MyTask', 'url' => ['/task/my'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'CreateTask', 'url' => ['/task/create'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'Gii', 'url' => ['/gii'],'visible'=>!Yii::$app->user->isGuest&& Yii::$app->user->identity->username == 'Admin'],
+            ['label' => 'Test', 'url' => ['/test/index'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'User', 'url' => ['/user/index'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'Task', 'url' => ['/task/index'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'TaskUser', 'url' => ['/task-user/index'],'visible'=>!Yii::$app->user->isGuest],
+            Yii::$app->user->isGuest ? (
+            ['label' => 'Login', 'url' => ['/site/login']]
+            ) : (
+                '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
+            ),
+        ],
+    ]);
+
+    /*echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => [
+            ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
+            Yii::$app->user->isGuest=>(['label' => 'Gii', 'url' => ['/gii']]),
             ['label' => 'Gii', 'url' => ['/gii']],
             ['label' => 'Test', 'url' => ['/test/index']],
             ['label' => 'User', 'url' => ['/user/index']],
@@ -59,7 +88,7 @@ AppAsset::register($this);
                 . '</li>'
             )
         ],
-    ]);
+    ]);*/
     NavBar::end();
     ?>
 
