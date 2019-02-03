@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\TaskUser;
 use Yii;
 use app\models\Task;
 use yii\data\ActiveDataProvider;
+use yii\debug\models\timeline\DataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -39,6 +41,29 @@ class TaskController extends Controller
         ];
     }
 
+    /**
+     * Lists all Task models.
+     * @return mixed
+     */
+    public function actionMy()
+    {
+
+        /*$myQuery = TaskUser::find()->select('task_id')->where(['user_id' => 1]);
+
+        $myMainQuery = Task::find()->where(['creator_id' => 1])->orWhere(['id'=> $myQuery]);
+
+        $dataProvider2 = new ActiveDataProvider([
+            'query'=>$myMainQuery
+        ]);*/
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Task::find()->byCreator(Yii::$app->user->id),
+        ]);
+
+        return $this->render('my', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Lists all Task models.
      * @return mixed

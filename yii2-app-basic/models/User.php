@@ -62,16 +62,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function beforeSave($insert)
     {
-
+        if (isset($this->password)) {
+            $this->password_hash = \Yii::$app->getSecurity()->generatePasswordHash($this->password);
+        }
         if (!parent::beforeSave($insert)) {
             return false;
         }
         if ($this->isNewRecord) {
             $this->auth_key = \Yii::$app->security->generateRandomString();
         }
-        if (isset($this->password)) {
-            $this->password_hash = \Yii::$app->getSecurity()->generatePasswordHash($this->password);
-        }
+
 
         return true;
     }

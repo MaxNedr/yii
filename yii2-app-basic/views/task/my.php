@@ -3,8 +3,10 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $dataProvider2 yii\data\ActiveDataProvider */
 
 $this->title = 'Tasks';
 $this->params['breadcrumbs'][] = $this->title;
@@ -17,9 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Task', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <p>
-        <?= Html::a('My task', ['my'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -29,13 +28,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'description:ntext',
-            'creator_id',
-            'updater_id',
-            //'created_at',
-            //'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{share} {view} {update} {delete}',
+                'buttons' => array(
+                    'share' => function ($url,\app\models\Task $model, $key) {
+                        $icon = \yii\bootstrap\Html::icon('share');
+                        return Html::a($icon, array('task-user/create', 'taskId'=>$model->id));
+                    }
+                )
+            ],
         ],
     ]); ?>
+
+
     <?php Pjax::end(); ?>
 </div>
