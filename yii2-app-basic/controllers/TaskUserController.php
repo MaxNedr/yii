@@ -90,8 +90,10 @@ class TaskUserController extends Controller
         $model->task_id = $taskId;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'The task is shared successfully');
+            return $this->redirect(['task/my']);
         }
+
 
         $users = User::find()->select('username')->where(['<>', 'id', Yii::$app->user->id])
             ->indexBy('id')->column();
