@@ -17,6 +17,8 @@ use yii\filters\VerbFilter;
  */
 class TaskController extends Controller
 {
+
+
     /**
      * {@inheritdoc}
      */
@@ -64,6 +66,19 @@ class TaskController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+
+    public function actionShared()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Task::find()->byCreator(Yii::$app->user->id)->innerJoinWith(Task::RELATION_TASK_USERS),
+        ]);
+
+        return $this->render('shared', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Lists all Task models.
      * @return mixed

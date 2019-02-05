@@ -28,6 +28,7 @@ class TaskUserController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'deleteAll' => ['POST'],
                 ],
 
             ],
@@ -134,6 +135,29 @@ class TaskUserController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Deletes an existing TaskUser model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDeleteAll($taskId)
+    {
+        $task = Task::findOne($taskId);
+        if (!$task || $task->creator_id != Yii::$app->user->id) {
+            throw new ForbiddenHttpException();
+        }
+
+        $task->unlinkAll(Task::RELATION_TASK_USERS, true);
+
+
+        Yii::$app->session->setFlash('success', 'Успешно удалён доступ');
+
+
+        return $this->redirect(['task/shared']);
     }
 
     /**
