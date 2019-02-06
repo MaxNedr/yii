@@ -67,14 +67,31 @@ class TaskController extends Controller
         ]);
     }
 
-
+    /**
+     * * Lists all shared Tasks.
+     * @return string
+     */
     public function actionShared()
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Task::find()->byCreator(Yii::$app->user->id)->innerJoinWith(Task::RELATION_TASK_USERS),
         ]);
 
-        return $this->render('shared', [
+        return $this->render('shared ', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    /**
+     * * Lists all shared Tasks.
+     * @return string
+     */
+    public function actionAccessed()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Task::find()->where(['<>','task.creator_id',Yii::$app->user->id])->andWhere(['user_id'=>Yii::$app->user->id])->innerJoinWith(Task::RELATION_TASK_USERS)->innerJoinWith('creator'),
+        ]);
+
+        return $this->render('accessed', [
             'dataProvider' => $dataProvider,
         ]);
     }
