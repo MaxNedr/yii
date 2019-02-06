@@ -33,7 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $user->username;
                 }
             ],
-            'created_at:datetime'
+            'created_at:datetime',
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => ' {view} {update}'
+            ],
 
 
 

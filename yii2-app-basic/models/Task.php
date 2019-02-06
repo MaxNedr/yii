@@ -24,6 +24,7 @@ use yii\behaviors\TimestampBehavior;
 class Task extends \yii\db\ActiveRecord
 {
     const RELATION_TASK_USERS = 'taskUsers';
+    const RELATION_USERS = 'creator';
     /**
      * {@inheritdoc}
      */

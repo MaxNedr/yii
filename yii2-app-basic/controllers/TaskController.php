@@ -3,12 +3,14 @@
 namespace app\controllers;
 
 use app\models\TaskUser;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Yii;
 use app\models\Task;
 use yii\data\ActiveDataProvider;
 use yii\debug\models\timeline\DataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -81,6 +83,7 @@ class TaskController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     /**
      * * Lists all shared Tasks.
      * @return string
@@ -88,7 +91,7 @@ class TaskController extends Controller
     public function actionAccessed()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Task::find()->where(['<>','task.creator_id',Yii::$app->user->id])->andWhere(['user_id'=>Yii::$app->user->id])->innerJoinWith(Task::RELATION_TASK_USERS)->innerJoinWith('creator'),
+            'query' => Task::find()->where(['<>', 'task.creator_id', Yii::$app->user->id])->andWhere(['user_id' => Yii::$app->user->id])->innerJoinWith(Task::RELATION_TASK_USERS)->innerJoinWith(Task::RELATION_USERS),
         ]);
 
         return $this->render('accessed', [
@@ -134,7 +137,8 @@ class TaskController extends Controller
         $model = new Task();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'The task is create successfully');
+            return $this->redirect(['my']);
         }
 
         return $this->render('create', [
@@ -152,9 +156,13 @@ class TaskController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if ($model->creator_id != Yii::$app->user->id) {
+            throw new ForbiddenHttpException('Access is denied! You can only edit tasks that you have created!');
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'The task is update successfully');
+            return $this->redirect(['my']);
         }
 
         return $this->render('update', [
@@ -171,9 +179,16 @@ class TaskController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+        if ($model->creator_id != Yii::$app->user->id) {
+            throw new ForbiddenHttpException('Access is denied! Only created tasks can be deleted !');
+        }
+
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success', 'The task is delete successfully');
+
+        return $this->redirect(['my']);
     }
 
     /**
