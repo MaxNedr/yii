@@ -42,12 +42,13 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'MyTask', 'url' => ['/task/my'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'MySharedTask', 'url' => ['/task/shared'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'MyAccessedTask', 'url' => ['/task/accessed'],'visible'=>!Yii::$app->user->isGuest],
             ['label' => 'CreateTask', 'url' => ['/task/create'],'visible'=>!Yii::$app->user->isGuest],
             ['label' => 'Gii', 'url' => ['/gii'],'visible'=>!Yii::$app->user->isGuest&& Yii::$app->user->identity->username == 'Admin'],
-            ['label' => 'Test', 'url' => ['/test/index'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'Tasks', 'url' => ['/task/index'],'visible'=>!Yii::$app->user->isGuest],
             ['label' => 'User', 'url' => ['/user/index'],'visible'=>!Yii::$app->user->isGuest],
-            ['label' => 'Task', 'url' => ['/task/index'],'visible'=>!Yii::$app->user->isGuest],
-            ['label' => 'TaskUser', 'url' => ['/task-user/index'],'visible'=>!Yii::$app->user->isGuest],
+
             Yii::$app->user->isGuest ? (
             ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

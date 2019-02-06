@@ -79,7 +79,8 @@ class TaskController extends Controller
             'query' => Task::find()->byCreator(Yii::$app->user->id)->innerJoinWith(Task::RELATION_TASK_USERS),
         ]);
 
-        return $this->render('shared ', [
+
+        return $this->render('shared', [
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -152,6 +153,7 @@ class TaskController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws ForbiddenHttpException
      */
     public function actionUpdate($id)
     {
@@ -176,6 +178,7 @@ class TaskController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws ForbiddenHttpException
      */
     public function actionDelete($id)
     {

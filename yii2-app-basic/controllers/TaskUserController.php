@@ -44,33 +44,7 @@ class TaskUserController extends Controller
         ];
     }
 
-    /**
-     * Lists all TaskUser models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => TaskUser::find(),
-        ]);
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single TaskUser model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
 
     /**
      * Creates a new TaskUser model.
@@ -105,25 +79,6 @@ class TaskUserController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing TaskUser model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Deletes an existing TaskUser model.
@@ -131,12 +86,18 @@ class TaskUserController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws ForbiddenHttpException
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+        if ($model->user_id != Yii::$app->user->id) {
+            throw new ForbiddenHttpException('Access is denied! Only your relation can be deleted !');
+        }
+
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['task/shared']);
     }
 
     /**
@@ -150,7 +111,7 @@ class TaskUserController extends Controller
     {
         $task = Task::findOne($taskId);
         if (!$task || $task->creator_id != Yii::$app->user->id) {
-            throw new ForbiddenHttpException();
+            throw new ForbiddenHttpException('Access is denied! Only created relation can be deleted !');
         }
 
         $task->unlinkAll(Task::RELATION_TASK_USERS, true);
@@ -177,4 +138,54 @@ class TaskUserController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    /**
+     * Lists all TaskUser models.
+     * @return mixed
+     */
+    /* public function actionIndex()
+     {
+         $dataProvider = new ActiveDataProvider([
+             'query' => TaskUser::find(),
+         ]);
+
+         return $this->render('index', [
+             'dataProvider' => $dataProvider,
+         ]);
+     }*/
+
+    /**
+     * Displays a single TaskUser model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    /*public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }*/
+    /**
+     * Updates an existing TaskUser model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    /*public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+        if (!$model || $model->user_id != Yii::$app->user->id) {
+            throw new ForbiddenHttpException();
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['task/shared']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }*/
 }
