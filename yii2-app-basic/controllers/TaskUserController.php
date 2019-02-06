@@ -98,26 +98,6 @@ class TaskUserController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['task/shared']);
-    } /**
-     * Deletes an existing TaskUser model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     * @throws ForbiddenHttpException
-     */
-    public function actionDeleteShare($id, $taskid)
-    {
-        $model = TaskUser::findOne(['user_id'=>$id, 'task_id'=>$taskid]);
-
-        $model->delete();
-
-        /*if ($model->user_id != Yii::$app->user->id) {
-            throw new ForbiddenHttpException('Access is denied! Only your relation can be deleted !');
-        }*/
-
-
-        return $this->refresh();
     }
 
     /**
