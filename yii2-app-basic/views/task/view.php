@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Task */
@@ -39,4 +40,27 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?=
+
+    GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+'id',
+            'username',
+
+
+            ['class' => 'yii\grid\ActionColumn',
+                'template' =>'{deleteRelation}',
+                'buttons'=> array(
+                    'deleteRelation' => function ($url, $dataProvider, $key) {
+                        $icon = \yii\bootstrap\Html::icon('remove');
+                        return Html::a($icon, array('task-user/delete', 'id'=>$dataProvider->id),['data' => [
+                            'confirm' => 'Are you sure you want to unshare this item?',
+                            'method' => 'post',
+                        ],]);
+                    }
+                )
+            ]
+        ]]) ?>
 </div>

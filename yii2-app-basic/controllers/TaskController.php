@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\TaskUser;
+use app\models\User;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Yii;
 use app\models\Task;
@@ -123,8 +124,26 @@ class TaskController extends Controller
      */
     public function actionView($id)
     {
+        /*->innerJoinWith(User::RELATION_CREATED_TASKS)
+        ->innerJoinWith(Task::RELATION_TASK_USERS)
+        ->where(['task.creator_id' => Yii::$app->user->id])
+        ->andWhere(['task.id'=>'task_user.task_id'])*/
+        $sql = User::find()
+            ->select('user_id')
+            ->innerJoin('task_user', ['task_id' => $id])
+            ->where(['user.id' => Yii::$app->user->id]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => User::find()
+                ->select(['username','id'])
+                ->where(['user.id' => $sql])
+
+        ]);
+
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider,
         ]);
     }
 

@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'deleteAll' => function ($url,\app\models\Task $model, $key) {
                         $icon = \yii\bootstrap\Html::icon('remove');
                         return Html::a($icon, array('task-user/delete-all', 'taskId'=>$model->id),['data' => [
-                            'confirm' => 'Are you sure you want to delete this item?',
+                            'confirm' => 'Are you sure you want to unshare this item?',
                             'method' => 'post',
                         ],]);
                     }
