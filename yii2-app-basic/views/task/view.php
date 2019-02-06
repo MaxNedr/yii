@@ -41,21 +41,20 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?=
-
     GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-'id',
+            'id',
             'username',
 
 
             ['class' => 'yii\grid\ActionColumn',
-                'template' =>'{deleteRelation}',
-                'buttons'=> array(
-                    'deleteRelation' => function ($url, $dataProvider, $key) {
+                'template' => '{deleteRelation}',
+                'buttons' => array(
+                    'deleteRelation' => function ($url, $dataProvider, $key) use ($model) {
                         $icon = \yii\bootstrap\Html::icon('remove');
-                        return Html::a($icon, array('task-user/delete', 'id'=>$dataProvider->id),['data' => [
+                        return Html::a($icon, array('task-user/delete-share', 'id' => $dataProvider->id, 'taskid' => $model->id), ['data' => [
                             'confirm' => 'Are you sure you want to unshare this item?',
                             'method' => 'post',
                         ],]);
