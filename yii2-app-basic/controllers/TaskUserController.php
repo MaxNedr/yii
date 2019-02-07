@@ -91,9 +91,9 @@ class TaskUserController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        if ($model->user_id != Yii::$app->user->id) {
+        /*if ($model->user_id != Yii::$app->user->id) {
             throw new ForbiddenHttpException('Access is denied! Only your relation can be deleted !');
-        }
+        }*/
 
         $this->findModel($id)->delete();
 

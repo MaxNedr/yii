@@ -135,8 +135,10 @@ class TaskController extends Controller
 
         $dataProvider = new ActiveDataProvider([
             'query' => User::find()
-                ->select(['username','id'])
+                ->select(['username', 'task_user.id'])
+                ->innerJoinWith(User::RELATION_TASK_USERS)
                 ->where(['user.id' => $sql])
+                ->andWhere(['task_id' => $id])
 
         ]);
 
